@@ -6,7 +6,9 @@
 
   <title>My Comedy Projects</title>
 
-  <style>
+  
+<meta name="description" content="Save, organize, search, and manage comedy projects with the Comedy Utility Toolbox Projects Dashboard.">
+<style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -250,7 +252,7 @@
 
 <nav>
   <a href="index.html">Home</a>
-  <a href="bit-builder-workspace.html">Bit Builder</a>
+  <a href="bit_builder_workspace.html">Bit Builder</a>
   <a href="setlist-architect.html">Setlist Architect</a>
   <a href="callback-search-engine.html">Callback Search</a>
 </nav>
@@ -422,9 +424,17 @@
 </div>
 
 <footer>
-  Comedy Utility Toolbox | My Comedy Projects V3
+  Comedy Utility Toolbox | My Comedy Projects
 </footer>
 
+
+
+<section style="max-width:900px;margin:35px auto;padding:22px;background:#fff8eb;border-left:6px solid #b87b2f;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.08);font-family:Arial,sans-serif;line-height:1.6;">
+  <h2 style="margin-top:0;color:#2f241d;">When To Use This Tool</h2>
+  <p>Use this tool when you need to save, sort, and track comedy ideas so good material does not vanish into the junk drawer of history.</p>
+  <h3 style="color:#2f241d;">Related Tools</h3>
+  <p><a href="bit_builder_workspace.html" style="font-weight:bold;color:#2f241d;">Bit Builder Workspace</a> | <a href="setlist-architect.html" style="font-weight:bold;color:#2f241d;">Setlist Architect</a> | <a href="callback-search-engine.html" style="font-weight:bold;color:#2f241d;">Callback Search Engine</a></p>
+</section>
 <script>
   function toggleHelp() {
     const helpSection = document.getElementById("helpSection");
@@ -767,7 +777,7 @@
     };
 
     localStorage.setItem("workspaceProjectTransfer", JSON.stringify(projectData));
-    window.location.href = "bit-builder-workspace.html";
+    window.location.href = "bit_builder_workspace.html";
   }
 
   function openBitInWorkspace(projectId, bitId) {
@@ -787,7 +797,7 @@
     };
 
     localStorage.setItem("workspaceProjectTransfer", JSON.stringify(projectData));
-    window.location.href = "bit-builder-workspace.html";
+    window.location.href = "bit_builder_workspace.html";
   }
 
   function clearForm() {

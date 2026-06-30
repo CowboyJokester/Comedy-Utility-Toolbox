@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bit Builder Workspace</title>
+
+  
+<meta name="description" content="Use the Bit Builder Workspace to develop comedy ideas, organize premises, shape angles, and turn rough thoughts into stronger working material.">
+<style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f1e8;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: #1d1713;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 18px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .navbar a:hover {
+      color: #f1d9a5;
+    }
+
+    header {
+      background: #2f241d;
+      color: white;
+      padding: 35px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 38px;
+    }
+
+    header p {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #f1d9a5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .helpBar {
+      background: #fff8e8;
+      border: 2px solid #b87b2f;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      color: #2f241d;
+    }
+
+    .helpButton {
+      width: auto;
+      margin: 0;
+      padding: 6px 12px;
+      border-radius: 50%;
+      background: #2f241d;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      border: none;
+    }
+
+    .helpButton:hover {
+      background: #b87b2f;
+    }
+
+    .helpSection {
+      display: none;
+      background: #fff8e8;
+      border: 2px solid #b87b2f;
+      padding: 18px;
+      border-radius: 10px;
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+
+    .helpSection h2 {
+      margin-top: 0;
+    }
+
+    .helpSection h3 {
+      color: #2f241d;
+      margin-bottom: 8px;
+    }
+
+    .intro {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+      margin-bottom: 25px;
+      border-left: 8px solid #b87b2f;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .builder-card {
+      background: white;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    }
+
+    .builder-card h2 {
+      margin-top: 0;
+      color: #2f241d;
+    }
+
+    .helper-text {
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+      resize: vertical;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    button {
+      border: none;
+      padding: 13px 18px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .primary-btn {
+      background: #2E8B57;
+      color: white;
+    }
+
+    .primary-btn:hover {
+      background: #256f47;
+    }
+
+    .secondary-btn {
+      background: #704214;
+      color: white;
+    }
+
+    .secondary-btn:hover {
+      background: #5d3510;
+    }
+
+    .danger-btn {
+      background: #a83232;
+      color: white;
+    }
+
+    .danger-btn:hover {
+      background: #872727;
+    }
+
+    .output-box {
+      background: #fffdf7;
+      border-left: 6px solid #2E8B57;
+      padding: 18px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      min-height: 120px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .stats-box {
+      background: #e9dfc7;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .save-status {
+      background: #fffdf7;
+      border-left: 6px solid #2E8B57;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .returnButton {
+      display: inline-block;
+      padding: 12px 18px;
+      background: #2f241d;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 25px;
+    }
+
+    .returnButton:hover {
+      background: #b87b2f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    @media (min-width: 800px) {
+      .workspace-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .full-width {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .navbar a {
+        display: inline-block;
+        margin: 6px 10px;
+      }
+
+      header h1 {
+        font-size: 30px;
+      }
+
+      .helpBar {
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="index.html">HOME</a>
+    <a href="about.html">ABOUT</a>
+    <a href="index.html#tools">TOOLBOX</a>
+    <a href="toolbox-contact.html">CONTACT</a>
+  </nav>
+
+  <header>
+    <h1>Bit Builder Workspace</h1>
+    <p>Turn a rough idea into a workable comedy bit without losing the mule.</p>
+  </header>
+
+  <div class="container">
+
+    <div class="helpBar">
+      <span>Need help building a comedy bit from start to finish?</span>
+      <button class="helpButton" onclick="toggleHelp()">?</button>
+    </div>
+
+        <div id="helpSection" class="helpSection">
+      <h2>How To Use This Tool</h2>
+
+      <h3>Purpose</h3>
+      <p>The Bit Builder Workspace helps you turn a rough comedy idea into a more complete bit by organizing the key pieces: premise, truth, escalation, tags, callbacks, performance notes, and final polished version.</p>
+
+      <h3>When To Use It</h3>
+      <p>Use this tool when you have an idea that is too big for one quick punchline, when a story needs structure, or when loose jokes need to be shaped into something you can actually perform.</p>
+
+      <h3>How To Use It</h3>
+      <ol>
+        <li>Enter the basic premise or story idea.</li>
+        <li>Write the honest truth underneath the idea.</li>
+        <li>Add escalation: how the situation gets bigger, stranger, or worse.</li>
+        <li>Add tags, alternate jokes, or quick punchlines.</li>
+        <li>List callback ideas that could return later.</li>
+        <li>Add performance notes for pauses, act-outs, voices, or delivery.</li>
+        <li>Write the final polished version.</li>
+        <li>Build the summary and save the draft when it is ready.</li>
+      </ol>
+
+      <h3>Example Input</h3>
+      <p><strong>Premise:</strong> My wife makes me trail two cart lengths behind her at Aldi.<br>
+      <strong>Truth:</strong> Married men are not shopping partners. We are cargo escorts.<br>
+      <strong>Escalation:</strong> First it is two cart lengths, then radio silence, then I am walking point by the canned goods.<br>
+      <strong>Callback:</strong> Cargo escort.</p>
+
+      <h3>Example Output</h3>
+      <p>The tool creates a structured bit summary showing your premise, truth, escalation, tags, callback ideas, performance notes, and final polished version in one place.</p>
+
+      <h3>Comedy Tip</h3>
+      <p>Do not try to write the final bit first. Build the truth and escalation first. A bit without structure is just a joke wearing loose suspenders.</p>
+    </div>
+
+    <section class="intro">
+      <h2>Purpose</h2>
+      <p>
+        This workspace helps comedians build a bit step by step:
+        premise, truth, escalation, tags, callbacks, and final polished version.
+        It does not write the jokes for you — it gives you a sturdy workbench so your ideas stop rolling off into the weeds.
+      </p>
+    </section>
+
+    <section id="workspace" class="workspace-grid">
+
+      <div class="builder-card">
+        <h2>1. Premise</h2>
+        <p class="helper-text">What is the bit about?</p>
+        <textarea id="premise" placeholder="Example: My wife makes me trail two cart lengths behind her at Aldi..."></textarea>
+      </div>
+
+      <div class="builder-card">
+        <h2>2. Truth</h2>
+        <p class="helper-text">What honest observation makes this funny?</p>
+        <textarea id="truth" placeholder="Example: Married men are not shopping partners. We are cargo escorts."></textarea>
+      </div>
+
+      <div class="builder-card">
+        <h2>3. Escalation</h2>
+        <p class="helper-text">How does the situation get bigger, stranger, or worse?</p>
+        <textarea id="escalation" placeholder="Example: First it's two cart lengths, then radio silence, then I'm walking point by the canned goods."></textarea>
+      </div>
+
+      <div class="builder-card">
+        <h2>4. Tags</h2>
+        <p class="helper-text">Extra punchlines, quick add-ons, or alternate jokes.</p>
+        <textarea id="tags" placeholder="Example: I wasn't shopping. I was in the witness protection program with coupons."></textarea>
+      </div>
+
+      <div class="builder-card">
+        <h2>5. Callback Ideas</h2>
+        <p class="helper-text">Words or phrases you can bring back later.</p>
+        <textarea id="callbacks" placeholder="Example: Two cart lengths. Cargo escort. Lead vehicle."></textarea>
+      </div>
+
+      <div class="builder-card">
+        <h2>6. Performance Notes</h2>
+        <p class="helper-text">Voice, pauses, act-outs, crowd-work, or delivery notes.</p>
+        <textarea id="notes" placeholder="Example: Act like I'm whispering into a military radio at Aldi."></textarea>
+      </div>
+
+      <div class="builder-card full-width">
+        <h2>7. Final Polished Bit</h2>
+        <p class="helper-text">Write the performance-ready version here.</p>
+        <textarea id="finalBitText" placeholder="Write your finished bit here..."></textarea>
+
+        <div class="stats-box" id="runtimeEstimate">
+          Estimated Runtime: 0 seconds
+        </div>
+      </div>
+
+    </section>
+
+    <div class="button-row">
+      <button class="primary-btn" onclick="buildBit()">Build Bit Summary</button>
+      <button class="secondary-btn" onclick="saveBit()">Save Draft</button>
+      <button class="secondary-btn" onclick="loadBit()">Load Saved Draft</button>
+      <button class="danger-btn" onclick="clearBit()">Clear Workspace</button>
+    </div>
+
+    <div id="saveStatus" class="save-status">
+      Save Status: Not saved yet.
+    </div>
+
+    <section id="finalBit" class="builder-card full-width" style="margin-top: 25px;">
+      <h2>Bit Summary Output</h2>
+      <div id="output" class="output-box">
+        Your built bit summary will appear here.
+      </div>
+    </section>
+
+    <a href="index.html#tools" class="returnButton">← Return To Toolbox</a>
+
+  </div>
+
+  <footer>
+    Comedy Utility Toolbox | Bit Builder Workspace
+  </footer>
+
+  
+
+<section style="max-width:900px;margin:35px auto;padding:22px;background:#fff8eb;border-left:6px solid #b87b2f;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.08);font-family:Arial,sans-serif;line-height:1.6;">
+  <h2 style="margin-top:0;color:#2f241d;">When To Use This Tool</h2>
+  <p>Use this tool when you want one place to shape a rough idea into a stronger working bit.</p>
+  <h3 style="color:#2f241d;">Related Tools</h3>
+  <p><a href="projects-dashboard.html" style="font-weight:bold;color:#2f241d;">My Comedy Projects</a> | <a href="setlist-architect.html" style="font-weight:bold;color:#2f241d;">Setlist Architect</a> | <a href="premise-collision-generator.html" style="font-weight:bold;color:#2f241d;">Premise Collision Generator</a></p>
+</section>
+<script>
+    const fields = [
+      "premise",
+      "truth",
+      "escalation",
+      "tags",
+      "callbacks",
+      "notes",
+      "finalBitText"
+    ];
+
+    function toggleHelp() {
+      const helpSection = document.getElementById("helpSection");
+
+      if (helpSection.style.display === "block") {
+        helpSection.style.display = "none";
+      } else {
+        helpSection.style.display = "block";
+      }
+    }
+
+    function getValue(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function buildBit() {
+      const premise = getValue("premise");
+      const truth = getValue("truth");
+      const escalation = getValue("escalation");
+      const tags = getValue("tags");
+      const callbacks = getValue("callbacks");
+      const notes = getValue("notes");
+      const finalBitText = getValue("finalBitText");
+
+      const summary =
+`PREMISE:
+${premise || "Not filled in yet."}
+
+TRUTH:
+${truth || "Not filled in yet."}
+
+ESCALATION:
+${escalation || "Not filled in yet."}
+
+TAGS:
+${tags || "Not filled in yet."}
+
+CALLBACK IDEAS:
+${callbacks || "Not filled in yet."}
+
+PERFORMANCE NOTES:
+${notes || "Not filled in yet."}
+
+FINAL POLISHED BIT:
+${finalBitText || "Not filled in yet."}`;
+
+      document.getElementById("output").textContent = summary;
+      updateRuntime();
+    }
+
+    function updateRuntime() {
+      const finalText = getValue("finalBitText");
+      const words = finalText.split(/\s+/).filter(function(word) {
+        return word.length > 0;
+      }).length;
+
+      const lowSeconds = Math.round((words / 140) * 60);
+      const highSeconds = Math.round((words / 120) * 60);
+
+      if (words === 0) {
+        document.getElementById("runtimeEstimate").textContent =
+          "Estimated Runtime: 0 seconds";
+      } else if (highSeconds < 60) {
+        document.getElementById("runtimeEstimate").textContent =
+          `Estimated Runtime: ${lowSeconds}-${highSeconds} seconds`;
+      } else {
+        const lowMin = Math.floor(lowSeconds / 60);
+        const lowSec = lowSeconds % 60;
+        const highMin = Math.floor(highSeconds / 60);
+        const highSec = highSeconds % 60;
+
+        document.getElementById("runtimeEstimate").textContent =
+          `Estimated Runtime: ${lowMin}:${String(lowSec).padStart(2, "0")} - ${highMin}:${String(highSec).padStart(2, "0")}`;
+      }
+    }
+
+    function saveBit() {
+      const savedData = {};
+
+      fields.forEach(function(field) {
+        savedData[field] = document.getElementById(field).value;
+      });
+
+      localStorage.setItem("bitBuilderWorkspaceDraft", JSON.stringify(savedData));
+
+      updateSaveStatus("Draft saved successfully");
+
+      document.getElementById("output").textContent =
+        "Draft saved successfully. She's tied to the post.";
+    }
+
+    function loadBit() {
+      const saved = localStorage.getItem("bitBuilderWorkspaceDraft");
+
+      if (!saved) {
+        document.getElementById("output").textContent =
+          "No saved draft found yet.";
+        return;
+      }
+
+      const savedData = JSON.parse(saved);
+
+      fields.forEach(function(field) {
+        document.getElementById(field).value = savedData[field] || "";
+      });
+
+      updateRuntime();
+      updateSaveStatus("Saved draft loaded");
+
+      document.getElementById("output").textContent =
+        "Saved draft loaded. Back in the saddle.";
+    }
+
+    function clearBit() {
+      const confirmClear = confirm("Clear the entire workspace?");
+
+      if (!confirmClear) {
+        return;
+      }
+
+      fields.forEach(function(field) {
+        document.getElementById(field).value = "";
+      });
+
+      document.getElementById("output").textContent =
+        "Workspace cleared.";
+
+      updateRuntime();
+      updateSaveStatus("Workspace cleared");
+    }
+
+    function loadTransferredProject() {
+      const transferredProject = localStorage.getItem("workspaceProjectTransfer");
+
+      if (!transferredProject) {
+        return;
+      }
+
+      const projectData = JSON.parse(transferredProject);
+
+      document.getElementById("premise").value =
+        projectData.name || projectData.title || "";
+
+      document.getElementById("truth").value =
+        projectData.notes || "";
+
+      document.getElementById("notes").value =
+        `CATEGORY: ${projectData.category || "Not listed"}\n\nSTATUS: ${projectData.status || "Not listed"}`;
+
+      localStorage.removeItem("workspaceProjectTransfer");
+      updateRuntime();
+      updateSaveStatus("Project transferred from Command Center");
+    }
+
+    function updateSaveStatus(message) {
+      const statusBox = document.getElementById("saveStatus");
+
+      if (!statusBox) {
+        return;
+      }
+
+      const now = new Date();
+      const time = now.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit"
+      });
+
+      statusBox.textContent = `${message} | Last Updated: ${time}`;
+    }
+
+    document.getElementById("finalBitText").addEventListener("input", updateRuntime);
+
+    loadTransferredProject();
+  </script>
+
+</body>
+</html>

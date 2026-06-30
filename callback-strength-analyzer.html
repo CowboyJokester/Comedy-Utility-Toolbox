@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Callback Strength Analyzer</title>
+
+  
+<meta name="description" content="Evaluate callback strength, timing, clarity, and payoff potential with the Comedy Utility Toolbox Callback Strength Analyzer.">
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 950px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f7f3ea;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: #1d1713;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 25px;
+      border-radius: 10px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 18px;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      color: #f1d9a5;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+      color: #2f241d;
+    }
+
+    .subtitle {
+      color: #555;
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .helpBar, .helpSection, .toolBox, .result {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .helpBar {
+      background: #fff8e8;
+      border: 2px solid #b87b2f;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      color: #2f241d;
+    }
+
+    .helpButton {
+      width: auto;
+      padding: 6px 12px;
+      border-radius: 50%;
+      background: #2f241d;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      border: none;
+    }
+
+    .helpButton:hover {
+      background: #b87b2f;
+    }
+
+    .helpSection {
+      display: none;
+      background: #fff8e8;
+      border: 2px solid #b87b2f;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    textarea, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+      font-family: Arial, sans-serif;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      color: white;
+      margin-top: 15px;
+    }
+
+    .generateButton {
+      background: #2E8B57;
+    }
+
+    .generateButton:hover {
+      background: #256F47;
+    }
+
+    .clearButton {
+      background: #B22222;
+    }
+
+    .clearButton:hover {
+      background: #8B1A1A;
+    }
+
+    .result {
+      display: none;
+      border-left: 8px solid #2E8B57;
+    }
+
+    .score {
+      font-size: 42px;
+      font-weight: bold;
+      color: #2f241d;
+      margin-bottom: 5px;
+    }
+
+    .rating {
+      display: inline-block;
+      background: #2f241d;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .adviceBox {
+      background: #f7f3ea;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      border-left: 5px solid #b87b2f;
+    }
+
+    .returnButton {
+      display: inline-block;
+      padding: 12px 18px;
+      background: #2f241d;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-top: 25px;
+    }
+
+    .returnButton:hover {
+      background: #b87b2f;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: #6b5140;
+      font-size: 14px;
+      border-top: 2px solid #d6b27c;
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <a href="index.html">HOME</a>
+  <a href="about.html">ABOUT</a>
+  <a href="index.html#tools">TOOLBOX</a>
+  <a href="toolbox-contact.html">CONTACT</a>
+</nav>
+
+<h1>Callback Strength Analyzer</h1>
+<p class="subtitle">
+  Test whether a callback is weak, usable, strong, or ready for a bigger payoff.
+</p>
+
+<div class="helpBar">
+  <span>Need help using this tool?</span>
+  <button class="helpButton" onclick="toggleHelp()">?</button>
+</div>
+
+<div id="helpSection" class="helpSection">
+  <h2>How To Use The Callback Strength Analyzer</h2>
+
+  <h3>Purpose</h3>
+  <p>
+    This tool helps you judge whether a callback is strong enough to use later in a joke, story, bit, routine, rodeo skit, or full set.
+  </p>
+
+  <h3>How It Works</h3>
+  <ol>
+    <li>Enter the original callback seed.</li>
+    <li>Enter the planned callback line.</li>
+    <li>Choose how memorable, surprising, connected, and delayed the callback is.</li>
+    <li>Click Analyze Callback.</li>
+  </ol>
+
+  <h3>Comedy Tip</h3>
+  <p>
+    A callback works best when the audience remembers the original seed but does not expect it to return.
+  </p>
+</div>
+
+<div class="toolBox">
+
+  <label>Original Callback Seed</label>
+  <textarea id="seed" placeholder="Example: My dog acts like he pays the mortgage."></textarea>
+
+  <label>Planned Callback Line</label>
+  <textarea id="callback" placeholder="Example: I came home and the dog was in my recliner. Apparently the mortgage payment cleared."></textarea>
+
+  <label>Time Gap</label>
+  <select id="timeGap">
+    <option value="5">Same joke</option>
+    <option value="10">1–2 minutes later</option>
+    <option value="13">3–5 minutes later</option>
+    <option value="15">6–10 minutes later</option>
+    <option value="14">End of set</option>
+  </select>
+
+  <label>Recognition Level</label>
+  <select id="recognition">
+    <option value="5">Audience may not remember it</option>
+    <option value="12">Somewhat memorable</option>
+    <option value="20">Very memorable</option>
+    <option value="25">Repeated phrase / strong image</option>
+  </select>
+
+  <label>Surprise Level</label>
+  <select id="surprise">
+    <option value="5">Predictable</option>
+    <option value="12">Slight twist</option>
+    <option value="20">Strong twist</option>
+    <option value="25">Big unexpected payoff</option>
+  </select>
+
+  <label>Emotional / Story Connection</label>
+  <select id="connection">
+    <option value="3">No connection</option>
+    <option value="9">Light connection</option>
+    <option value="15">Strong connection</option>
+    <option value="20">Ties the whole bit together</option>
+  </select>
+
+  <label>Callback Type</label>
+  <select id="type">
+    <option value="8">Repeated phrase</option>
+    <option value="10">Character callback</option>
+    <option value="10">Object callback</option>
+    <option value="12">Story callback</option>
+    <option value="12">Visual callback</option>
+    <option value="9">Tag callback</option>
+    <option value="15">Closing callback</option>
+  </select>
+
+  <button class="generateButton" onclick="analyzeCallback()">Analyze Callback</button>
+  <button class="clearButton" onclick="clearTool()">Clear</button>
+
+</div>
+
+<div id="result" class="result">
+  <div class="score" id="scoreDisplay"></div>
+  <div class="rating" id="ratingDisplay"></div>
+
+  <h3>Diagnosis</h3>
+  <p id="diagnosis"></p>
+
+  <div class="adviceBox">
+    <h3>Improvement Suggestions</h3>
+    <ul id="suggestions"></ul>
+  </div>
+
+  <div class="adviceBox">
+    <h3>Best Use Recommendation</h3>
+    <p id="bestUse"></p>
+  </div>
+</div>
+
+<a href="index.html" class="returnButton">Return To Toolbox</a>
+
+<footer>
+  © 2026 Comedy Utility Toolbox | Created by Freddie Waltz
+</footer>
+
+
+
+<section style="max-width:900px;margin:35px auto;padding:22px;background:#fff8eb;border-left:6px solid #b87b2f;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.08);font-family:Arial,sans-serif;line-height:1.6;">
+  <h2 style="margin-top:0;color:#2f241d;">When To Use This Tool</h2>
+  <p>Use this tool when you already have a callback and want to test whether the setup, memory, timing, and payoff are strong enough.</p>
+  <h3 style="color:#2f241d;">Related Tools</h3>
+  <p><a href="callback-mapper.html" style="font-weight:bold;color:#2f241d;">Callback Mapper</a> | <a href="callback-seed-planter.html" style="font-weight:bold;color:#2f241d;">Callback Seed Planter</a> | <a href="setlist-architect.html" style="font-weight:bold;color:#2f241d;">Setlist Architect</a></p>
+</section>
+<script>
+function toggleHelp() {
+  const help = document.getElementById("helpSection");
+  help.style.display = help.style.display === "block" ? "none" : "block";
+}
+
+function analyzeCallback() {
+  const seed = document.getElementById("seed").value.trim();
+  const callback = document.getElementById("callback").value.trim();
+
+  const timeGap = parseInt(document.getElementById("timeGap").value);
+  const recognition = parseInt(document.getElementById("recognition").value);
+  const surprise = parseInt(document.getElementById("surprise").value);
+  const connection = parseInt(document.getElementById("connection").value);
+  const type = parseInt(document.getElementById("type").value);
+
+  let score = timeGap + recognition + surprise + connection + type;
+
+  if (seed.length < 10) score -= 8;
+  if (callback.length < 10) score -= 8;
+  if (score < 0) score = 0;
+  if (score > 100) score = 100;
+
+  let rating = "";
+  let diagnosis = "";
+  let bestUse = "";
+  let suggestions = [];
+
+  if (score < 40) {
+    rating = "Weak Callback";
+    diagnosis = "This callback may not be strong enough yet. The audience may not clearly remember the original seed, or the payoff may not feel surprising enough.";
+    bestUse = "Use this as a rewrite candidate before putting it in a set.";
+    suggestions.push("Make the original seed more memorable.");
+    suggestions.push("Bring back an exact phrase, image, object, or character trait.");
+    suggestions.push("Add a sharper twist to the callback line.");
+  } else if (score < 60) {
+    rating = "Usable Callback";
+    diagnosis = "This callback has some value, but it may need a clearer setup or a stronger payoff before it gets a reliable laugh.";
+    bestUse = "Use as a tag, small payoff, or test line during rewriting.";
+    suggestions.push("Shorten the callback line.");
+    suggestions.push("Make the connection to the original seed clearer.");
+    suggestions.push("Increase the surprise in the second appearance.");
+  } else if (score < 80) {
+    rating = "Strong Callback";
+    diagnosis = "This callback has good recognition and enough surprise to create a solid payoff. It should be worth testing in performance.";
+    bestUse = "Use near the end of a bit or as a strong transition between related jokes.";
+    suggestions.push("Consider delaying it slightly longer.");
+    suggestions.push("Use the strongest word from the original seed again.");
+    suggestions.push("Test whether it gets a bigger laugh after the audience has almost forgotten it.");
+  } else {
+    rating = "Big Payoff Callback";
+    diagnosis = "This callback has strong recognition, surprise, and connection. It may be strong enough for an end-of-bit payoff or closer.";
+    bestUse = "Use as a major payoff, end-of-bit button, routine closer, or set closer candidate.";
+    suggestions.push("Protect this callback. Do not overuse it too early.");
+    suggestions.push("Make sure the original seed is delivered clearly.");
+    suggestions.push("Consider saving it for the biggest payoff position.");
+  }
+
+  if (recognition < 12) {
+    suggestions.push("The audience may need a stronger original seed.");
+  }
+
+  if (surprise < 12) {
+    suggestions.push("The callback may need a more unexpected turn.");
+  }
+
+  if (connection < 9) {
+    suggestions.push("Tie the callback more clearly to the story, character, or emotional idea.");
+  }
+
+  document.getElementById("scoreDisplay").textContent = score + " / 100";
+  document.getElementById("ratingDisplay").textContent = rating;
+  document.getElementById("diagnosis").textContent = diagnosis;
+  document.getElementById("bestUse").textContent = bestUse;
+
+  const suggestionList = document.getElementById("suggestions");
+  suggestionList.innerHTML = "";
+
+  suggestions.forEach(function(item) {
+    const li = document.createElement("li");
+    li.textContent = item;
+    suggestionList.appendChild(li);
+  });
+
+  document.getElementById("result").style.display = "block";
+}
+
+function clearTool() {
+  document.getElementById("seed").value = "";
+  document.getElementById("callback").value = "";
+
+  document.getElementById("timeGap").selectedIndex = 0;
+  document.getElementById("recognition").selectedIndex = 0;
+  document.getElementById("surprise").selectedIndex = 0;
+  document.getElementById("connection").selectedIndex = 0;
+  document.getElementById("type").selectedIndex = 0;
+
+  document.getElementById("result").style.display = "none";
+}
+</script>
+
+</body>
+</html>
